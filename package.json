@@ -1,0 +1,22 @@
+{
+  "name": "cld-shoppable",
+  "version": "1.0.0",
+  "description": "echo hackathon",
+  "source":"./demo/index.html",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "npx parcel demo/index.html",
+    "build": "npx parcel build"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@cloudinary/html": "^1.5.0",
+    "@cloudinary/url-gen": "^1.8.6"
+  },
+  "devDependencies": {
+    "process": "^0.11.10"
+  }
+}
+
