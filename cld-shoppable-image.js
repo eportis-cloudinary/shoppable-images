@@ -1,5 +1,7 @@
 //use parcel: npx parcel index.html
 
+import {html,css,LitElement} from 'lit';
+
 // Import the Cloudinary class.
 import {Cloudinary} from "@cloudinary/url-gen";
 import {scale} from "@cloudinary/url-gen/actions/resize";
@@ -17,42 +19,37 @@ import {
 } from "@cloudinary/html";
 
 
+export class CldShoppableImage extends LitElement {
 
-class CldShoppableImage extends HTMLElement {
-	constructor() {
-		super();
+    static styles = css`img {border: 1px solid blue}`;
 
-        // Create a Cloudinary instance and set your cloud name.
-        const cld = new Cloudinary({
+    static properties = {
+        cld: {},
+        cldImage: {},
+        publicId: {},
+    }
+
+    constructor() {
+        super();
+        this.cld = new Cloudinary({
             cloud: {
-                cloudName: 'demo'
-              }
+                cloudName: 'thenorthface-nora' 
+            }
         });
-
-        // cld.image returns a CloudinaryImage with the configuration set.
-        const myImage = cld.image('sample'); // sample is the public ID of the image.
-
-        myImage
-          .effect(cartoonify())
-          .roundCorners(max())
-          .effect(outline().mode(outer()).width(100).color('lightblue'))
-          .backgroundColor('lightblue')
-          .resize(scale().height(300));
-
-        // This returns: https://res.cloudinary.com/demo/image/upload/sample
-        const myURL = myImage.toURL();
-        console.log("url-gen:", myURL);
-
-
-        // Render the images in an 'img' element.
-        const imgTag = document.createElement("img");
-        //document.body.appendChild(imgTag);
-        imgTag.height = 500;
-        imgTag.src = myURL;
-
-
-        var cld_shoppable = document.getElementsByTagName("cld-shoppable-image");
-        cld_shoppable[0].appendChild(imgTag);
+ 
+        this.publicId = 'ss-baselayer-image-t-d-xl';
+        this.cldImage = this.cld.image(this.publicId);
+        this.cldImage
+            .resize(scale().height(500))
+            .format('auto')
+            .quality('auto');
+        console.log("image: ", this.cldImage.toURL());
+    };
+    
+    render(){
+        return html`
+        <img src=${this.cldImage.toURL()} />
+        `;
     }
 
 	connectedCallback() {
@@ -60,4 +57,56 @@ class CldShoppableImage extends HTMLElement {
 	}
 }
 
+export class CldProduct extends LitElement {
+    
+    constructor(){
+        console.log("cldProduct");
+    }
+
+    render(){
+        return html`
+            <div></div>
+        `;
+    }
+
+}
+
+//kickstart here
+var div = document.getElementById('shoppable-container');
+
+//collection of asset list urls
+const urls = [
+"https://assets.thenorthface.com/any/list/v1733561493/NF0A52UU.json",
+"https://assets.thenorthface.com/any/list/v1733561642/NF0A7W4X.json",
+"https://assets.thenorthface.com/any/list/v1733560915/NF0A52S3926.json",
+"https://assets.thenorthface.com/any/list/v1733561642/NF0A7W4X.json"
+];
+
+urls.forEach((url)=>{
+    //fetch asset list 
+    fetch(url)
+        .then((res) => {
+            if(!res.ok){
+                throw new Error('HTTP Error!');
+            }
+            return res.json();
+        })
+         .then((data)=>{
+            // set the cld-product element and cld-shoppable-image element
+            data.resources.forEach((e)=>{
+                var prodElem = document.createElement('cld-product');
+                prodElem.setAttribute('cld-public-id',e.public_id);
+                var shopElem = document.createElement('cld-shoppable-image');
+                shopElem.setAttribute('cld-transformation','f_auto,q_auto');
+                prodElem.appendChild(shopElem);
+                //img not appearing
+                //customElements.define("cld-shoppable-image", CldShoppableImage);
+                //append to container
+                div.appendChild(prodElem);
+            });
+         });
+});
+
+//do LitElement
 customElements.define("cld-shoppable-image", CldShoppableImage);
+

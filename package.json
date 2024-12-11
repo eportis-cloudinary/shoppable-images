@@ -2,21 +2,22 @@
   "name": "cld-shoppable",
   "version": "1.0.0",
   "description": "echo hackathon",
-  "source":"./demo/index.html",
+  "source": "./demo/index.html",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "npx parcel demo/index.html",
+    "start": "npx parcel --no-cache demo/index.html",
     "build": "npx parcel build"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "@cloudinary/html": "^1.5.0",
-    "@cloudinary/url-gen": "^1.8.6"
+    "@cloudinary/url-gen": "^1.8.6",
+    "lit": "^3.2.1",
+    "typescript": "^5.7.2"
   },
   "devDependencies": {
     "process": "^0.11.10"
   }
 }
-
