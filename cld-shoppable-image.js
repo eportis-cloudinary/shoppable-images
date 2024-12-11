@@ -76,10 +76,7 @@ var div = document.getElementById('shoppable-container');
 
 //collection of asset list urls
 const urls = [
-"https://assets.thenorthface.com/any/list/v1733561493/NF0A52UU.json",
-"https://assets.thenorthface.com/any/list/v1733561642/NF0A7W4X.json",
-"https://assets.thenorthface.com/any/list/v1733560915/NF0A52S3926.json",
-"https://assets.thenorthface.com/any/list/v1733561642/NF0A7W4X.json"
+    "https://assets.thenorthface.com/any/list/v1733560842/cld-temp.json",
 ];
 
 urls.forEach((url)=>{
@@ -98,10 +95,26 @@ urls.forEach((url)=>{
                 prodElem.setAttribute('cld-public-id',e.public_id);
                 var shopElem = document.createElement('cld-shoppable-image');
                 shopElem.setAttribute('cld-transformation','f_auto,q_auto');
-                prodElem.appendChild(shopElem);
                 //img not appearing
                 //customElements.define("cld-shoppable-image", CldShoppableImage);
                 //append to container
+                 var cld = new Cloudinary({
+                    cloud: {
+                        cloudName: 'thenorthface-nora'
+                    }
+                });
+
+                var cldImage = cld.image(e.public_id);
+                cldImage
+                    .resize(scale().height(500))
+                    .format('auto')
+                    .quality('auto');
+                var imgElem = document.createElement('img');
+                imgElem.setAttribute('src',cldImage.toURL());
+
+                //append tree
+                shopElem.appendChild(imgElem);
+                prodElem.appendChild(shopElem);
                 div.appendChild(prodElem);
             });
          });
