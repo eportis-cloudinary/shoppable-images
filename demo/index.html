@@ -107,10 +107,17 @@ cld-shoppable-image:has( #product1:hover ) #product1_hotspot {
 </cld-shoppable-image>
 
 
-
-<script
+<script type="importmap">
+{
+	"imports": {
+		"lit-html": "../node_modules/lit-html/lit-html.js",
+		"lit-element": "../node_modules/lit-element/lit-element.js",
+		"@lit/reactive-element": "../node_modules/@lit/reactive-element/reactive-element.js"
+	}
+}
+</script>
+<script type="module"
 	src="../cld-shoppable-image.js"
-	type="module"
 ></script>
 </body>
 </html>

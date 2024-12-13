@@ -1,19 +1,13 @@
 {
-  "name": "cld-shoppable",
-  "version": "1.0.0",
+  "name": "cld-shoppable-images",
+  "version": "0.1.0",
   "description": "echo hackathon",
-  "source": "./demo/index.html",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "npx parcel --no-cache demo/index.html",
-    "build": "npx parcel build"
-  },
-  "author": "",
+  "type": "module",
+  "contributors": [
+    "Anthony Datu",
+    "Eric Portis"
+  ],
   "dependencies": {
-    "lit": "^3.2.1",
-  },
-  "devDependencies": {
-    "process": "^0.11.10"
+    "lit": "^3.2.1"
   }
 }

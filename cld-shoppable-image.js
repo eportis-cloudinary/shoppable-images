@@ -1,6 +1,7 @@
 //use parcel: npx parcel index.html
 
-import {html, render, LitElement} from 'https://esm.sh/lit@3.2.1';
+import {html, render} from 'lit-html';
+import {LitElement} from 'lit-element';
 
 export class CldShoppableImage extends LitElement {
     createRenderRoot() {
