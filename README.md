@@ -3,7 +3,7 @@
 Cloudinary Echo Hackathon project. Wrap an `<img>` in a `<cld-shoppable-image>` custom element, and give it some `<cld-product>` siblings, like this:
 
 ```html
-</cld-shoppable-image>
+<cld-shoppable-image>
 
 	<cld-product
 		href="https://www.thenorthface.com/en-us/womens/collections/summit-series-c324773/womens-summit-series-pro-120-crew-pNF0A880A"
@@ -30,7 +30,7 @@ Cloudinary Echo Hackathon project. Wrap an `<img>` in a `<cld-shoppable-image>` 
 
 The custom element then transforms that into this on the rendered page: 
 
-<img width=454 height=606 src="https://o.img.rodeo/video/upload/fl_animated,f_gif/v1734101948/Screen_Recording_2024-12-13_at_06.57.04" alt="The image has a “Show Products” button in the upper left, and has two clickable “hotspot” circles within it; Clicking any of these toggles a drop down menu of products which appears below the “Show Products” button. If a hotspot was clicked or is hovered, that product is highlighted." />
+![https://o.img.rodeo/video/upload/fl_animated,f_gif/v1734101948/Screen_Recording_2024-12-13_at_06.57.04" alt="The image has a “Show Products” button in the upper left, and has two clickable “hotspot” circles within it; Clicking any of these toggles a drop down menu of products which appears below the “Show Products” button. If a hotspot was clicked or is hovered, that product is highlighted.](https://o.img.rodeo/video/upload/fl_animated,f_gif/v1734101948/Screen_Recording_2024-12-13_at_06.57.04)
 
 ## Installation
 
