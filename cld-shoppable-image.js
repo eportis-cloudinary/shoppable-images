@@ -1,125 +1,106 @@
 //use parcel: npx parcel index.html
 
-import {html,css,LitElement} from 'lit';
-
-// Import the Cloudinary class.
-import {Cloudinary} from "@cloudinary/url-gen";
-import {scale} from "@cloudinary/url-gen/actions/resize";
-import {outline, cartoonify} from "@cloudinary/url-gen/actions/effect";
-import {max} from "@cloudinary/url-gen/actions/roundCorners";
-import {outer} from "@cloudinary/url-gen/qualifiers/outlineMode";
-
-
-import {
-  lazyload,
-  responsive,
-  //accessibility,
-  //placeholder,
-  HtmlImageLayer
-} from "@cloudinary/html";
-
+import {html, render, LitElement} from 'https://esm.sh/lit@3.2.1';
 
 export class CldShoppableImage extends LitElement {
-
-    static styles = css`img {border: 1px solid blue}`;
-
-    static properties = {
-        cld: {},
-        cldImage: {},
-        publicId: {},
-    }
-
-    constructor() {
-        super();
-        this.cld = new Cloudinary({
-            cloud: {
-                cloudName: 'thenorthface-nora' 
-            }
-        });
- 
-        this.publicId = 'ss-baselayer-image-t-d-xl';
-        this.cldImage = this.cld.image(this.publicId);
-        this.cldImage
-            .resize(scale().height(500))
-            .format('auto')
-            .quality('auto');
-        console.log("image: ", this.cldImage.toURL());
-    };
-    
+    createRenderRoot() {
+  return this;
+}
     render(){
+        const img = this.querySelector('img');
         return html`
-        <img src=${this.cldImage.toURL()} />
+        
+<style>
+@layer base {
+  cld-shoppable-image { display: contents; }
+cld-shoppable-image .photo {
+  anchor-name: --image;
+}
+cld-shoppable-image .productsButton {
+  position: absolute;
+  position-anchor: --image;
+  inset-block-start: anchor(start);
+  margin: 0.25em;
+  anchor-name: --button;
+}
+
+cld-shoppable-image .productsList[popover] {
+  position: absolute;
+  position-anchor: --button;
+  inset-block-start: anchor(end);
+  inset-inline-start: anchor(start);
+  margin: 0;
+  padding: 0;
+}
+
+cld-shoppable-image .productsButtonText:before { content: "Show "; }
+cld-shoppable-image:has([popover]:popover-open) button[popovertarget] .productsButtonText:before { content: "Hide " }
+
+cld-shoppable-image .product a {
+  display: grid;
+  grid-template-columns: 0.33fr 1fr;
+  margin: 0;
+  padding: 0;
+  border: none;
+}
+cld-shoppable-image .productThumb {
+  width: 100%;
+}
+  cld-shoppable-image .hotspot {
+    position: absolute;
+    position-anchor: --image;
+    --diameter: 2rem;
+    inset-inline-start: calc( (anchor(end) * var(--x)) - (var(--diameter) / 2) );
+    inset-block-start: calc( (anchor(end) * var(--y)) - (var(--diameter) / 2) );
+    width: var(--diameter);
+    aspect-ratio: 1;
+    border-radius: 100%;
+    visibility: hidden;
+    cursor: pointer;
+  }
+  cld-shoppable-image:hover .hotspot {
+    visibility: visible;
+  }
+}
+</style>
+        
+
+<button
+  class="productsButton"
+  popovertarget=photo1234_products
+>
+    <span class="productsButtonText">Products</span>
+</button>
+<ul
+  class="productsList"
+  popover
+  id=photo1234_products
+>
+  <li class="product" id="product2">
+    <a href="#">
+    <img class="productThumb" src="https://assets.thenorthface.com/image/upload/q_auto,f_auto/v1725637817/summit-pro-120-crew">
+    <div class="productText">
+      <p class=productCategory>Base Layer</p>
+      <h2 class=productName>Summit Pro 120 Crew</h2>
+    </div>
+    </a>
+  </li>
+  <li class="product" id="product1">
+    <a href="#">
+    <img class="productThumb" src="https://assets.thenorthface.com/image/upload/q_auto,f_auto/v1725637819/summit-series-goretex-bibs">
+    <div class="productText">
+      <p class=productCategory>Shell Layer</p>
+      <h2 class=productName>Summit Series Verbier Bibs</h2>
+    </div>
+    </a>
+  </li>
+</ul>
+  <button class="hotspot" id="product2_hotspot" style="--x: 0.55; --y: 0.35;" popovertarget=photo1234_products></button>
+  <button class="hotspot" id="product1_hotspot" style="--x: 0.5; --y: 0.75;" popovertarget=photo1234_products></button>
         `;
     }
 
-	connectedCallback() {
-		console.log("Custom element added to page.");
-	}
 }
 
-export class CldProduct extends LitElement {
-    
-    constructor(){
-        console.log("cldProduct");
-    }
 
-    render(){
-        return html`
-            <div></div>
-        `;
-    }
-
-}
-
-//kickstart here
-var div = document.getElementById('shoppable-container');
-
-//collection of asset list urls
-const urls = [
-    "https://assets.thenorthface.com/any/list/v1733560842/cld-temp.json",
-];
-
-urls.forEach((url)=>{
-    //fetch asset list 
-    fetch(url)
-        .then((res) => {
-            if(!res.ok){
-                throw new Error('HTTP Error!');
-            }
-            return res.json();
-        })
-         .then((data)=>{
-            // set the cld-product element and cld-shoppable-image element
-            data.resources.forEach((e)=>{
-                var prodElem = document.createElement('cld-product');
-                prodElem.setAttribute('cld-public-id',e.public_id);
-                var shopElem = document.createElement('cld-shoppable-image');
-                shopElem.setAttribute('cld-transformation','f_auto,q_auto');
-                //img not appearing
-                //customElements.define("cld-shoppable-image", CldShoppableImage);
-                //append to container
-                 var cld = new Cloudinary({
-                    cloud: {
-                        cloudName: 'thenorthface-nora'
-                    }
-                });
-
-                var cldImage = cld.image(e.public_id);
-                cldImage
-                    .resize(scale().height(500))
-                    .format('auto')
-                    .quality('auto');
-                var imgElem = document.createElement('img');
-                imgElem.setAttribute('src',cldImage.toURL());
-
-                //append tree
-                shopElem.appendChild(imgElem);
-                prodElem.appendChild(shopElem);
-                div.appendChild(prodElem);
-            });
-         });
-});
-
-//do LitElement
-customElements.define("cld-shoppable-image", CldShoppableImage);
-
+customElements.define('cld-shoppable-image', CldShoppableImage);

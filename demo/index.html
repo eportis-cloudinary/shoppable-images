@@ -4,9 +4,109 @@
 <meta charset="utf-8">
 <title>Shoppable image demo</title>
 <meta name="viewport" content="width=device-width">
+<style>
+body, html { margin: 0; padding: 0; }
+* { box-sizing: border-box; }
+html { font-family: system-ui; }
+
+.photo {
+  display: block;
+  width: 50%;
+  height: auto;
+}
+
+html {
+  --dark-glass: rgba(0 0 0 / 0.75);
+}
+.productsButton {
+  background: var(--dark-glass);
+  color: white;
+  padding: 1em;
+  font-family: inherit;
+  font-size: inherit;
+  border: 1px solid white;
+  border-radius: 2em;;
+}
+.productsButton:hover {
+  cursor: pointer;
+}
+
+.productsList {
+  background-color: transparent;
+  color: white;
+  background: var(--dark-glass);
+  border: none;
+  list-style: none;
+  border-radius: 1em;
+  margin-block-start: 1em;
+}
+
+.productsList a {
+  color: inherit;
+  text-decoration: none;
+  padding: 1em;
+}
+.productsList a:hover {
+  background-color: orange;
+  color: black;
+}
+.productCategory {
+  font-size: 0.8625rem;
+}
+.productName {
+  font-size: 1.25rem;
+}
+.hotspot {
+  background-color: var(--dark-glass);
+  outline: 1px solid white;
+}
+.hotspot:hover {
+  background-color: orange;
+}
+
+/* hacks */
+cld-shoppable-image:has(#product1_hotspot:hover) #product1 {
+  background-color: orange;
+  color: black;
+}
+cld-shoppable-image:has(#product2_hotspot:hover) #product2 {
+  background-color: orange;
+  color: black;
+}
+cld-shoppable-image:has( #product2:hover ) #product2_hotspot {
+  background-color: orange;
+}
+cld-shoppable-image:has( #product1:hover ) #product1_hotspot {
+  background-color: orange;
+}
+
+
+</style>
 </head>
 <body>
-    <div id="shoppable-container"></div>
+
+<cld-shoppable-image>
+
+<cld-product
+	thumb="https://assets.thenorthface.com/image/upload/q_auto,f_auto/v1725637817/summit-pro-120-crew"
+	category="Base Layer"
+	name="Summit Pro 120 Crew"
+	x=0.55
+	y=0.35
+></cld-product>
+<cld-product
+	thumb="https://assets.thenorthface.com/image/upload/q_auto,f_auto/v1725637819/summit-series-goretex-bibs"
+	category="Shell Layer"
+	name="Summit Series Verbier Bibs"
+	x=0.5
+	y=0.75
+></cld-product>
+
+<img class="photo" src="https://assets.thenorthface.com/image/upload/q_auto,f_auto/v1725637803/ss-baselayer-image-t-d-xl" />
+
+</cld-shoppable-image>
+
+
 
 <script
 	src="../cld-shoppable-image.js"
