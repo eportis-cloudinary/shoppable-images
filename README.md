@@ -1,4 +1,4 @@
-# <cld-shoppable-image>
+# `<cld-shoppable-image>`
 
 Cloudinary Echo Hackathon project. Wrap an `<img>` in a `<cld-shoppable-image>` custom element, and give it some `<cld-product>` siblings, like this:
 
