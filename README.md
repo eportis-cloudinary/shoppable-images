@@ -30,7 +30,8 @@ Cloudinary Echo Hackathon project. Wrap an `<img>` in a `<cld-shoppable-image>` 
 
 The custom element then transforms that into this on the rendered page: 
 
-![https://o.img.rodeo/video/upload/fl_animated,f_gif/v1734101948/Screen_Recording_2024-12-13_at_06.57.04" alt="The image has a “Show Products” button in the upper left, and has two clickable “hotspot” circles within it; Clicking any of these toggles a drop down menu of products which appears below the “Show Products” button. If a hotspot was clicked or is hovered, that product is highlighted.](https://o.img.rodeo/video/upload/fl_animated,f_gif/v1734101948/Screen_Recording_2024-12-13_at_06.57.04)
+![The image has a “Show Products” button in the upper left, and has two clickable “hotspot” circles within it; Clicking any of these toggles a drop down menu of products which appears below the “Show Products” button. If a hotspot was clicked or is hovered, that product is highlighted.](https://github.com/user-attachments/assets/2cd8e288-301a-4c00-b32e-256c07e454c3)
+
 
 ## Installation
 
